@@ -7,8 +7,10 @@
     "start": "nuxt start"
   },
   "dependencies": {
+    "@nuxt/content": "^1.11.1",
     "nuxt": "^2.14.12",
-    "nuxt-buefy": "^0.4.4"
+    "nuxt-buefy": "^0.4.4",
+    "nuxt-property-decorator": "^2.9.1"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.12",
