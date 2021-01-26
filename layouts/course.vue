@@ -13,14 +13,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
-import Footer from "~/components/Footer.vue";
-import Navbar from "~/components/Sidebar.vue";
+import { Component, Vue } from 'nuxt-property-decorator'
+import Footer from '~/components/Footer.vue'
+import Sidebar from '~/components/Sidebar.vue'
 @Component({
   components: {
     Footer,
-    Navbar,
-  },
+    Sidebar
+  }
 })
 export default class App extends Vue {}
 </script>

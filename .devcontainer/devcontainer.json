@@ -1,6 +1,6 @@
   
 {
-    "name": "Course",
+    "name": "Chapter",
     "build": {
         "dockerfile": "Dockerfile",
         "context": ".."

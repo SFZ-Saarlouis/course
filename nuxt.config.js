@@ -2,10 +2,17 @@ export default {
   target: 'static',
   telemetry: false,
   ssr: false,
+  components: true,
   router: {
     base: process.env.NODE_ENV === 'github' ? '/course/' : '/',
-    middleware: 'router'
   },
+  content: {
+    liveEdit: false
+  },
+  generate: {
+    fallback: '404.html'
+  },
+  plugins: ['~/plugins/index'],
   build: {
     parallel: true,
     terser: true,
