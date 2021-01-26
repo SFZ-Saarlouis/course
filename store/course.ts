@@ -1,5 +1,4 @@
 import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
-import { Chapter } from '~/interfaces/Chapter';
 import { Exercise } from '~/interfaces/Excercise'
 
 @Module({
@@ -11,28 +10,28 @@ export default class Course extends VuexModule {
   locked = true;
   jumpedPage = '';
   jumpedChapter = '';
-  unlockedExercise: Array<Exercise> = JSON.parse(localStorage.getItem('unlockedChapters') || '[]');
+  unlockedExercise: Array<Exercise> = JSON.parse(localStorage.getItem(process.env.courseName + '-unlockedChapters') || '[]');
 
-  get isExerciseUnlocked () {
+  get isExerciseUnlocked() {
     return (chapter: string, page: string): boolean => {
       return this.unlockedExercise.filter(item => item.chapter === chapter && item.page === page).length > 0
     }
   }
 
   @Mutation
-  public unlockExercise (exercise: Exercise): void {
+  public unlockExercise(exercise: Exercise): void {
     if (this.unlockedExercise.filter(item => item.chapter === exercise.chapter && item.page === exercise.page).length > 0) {
       return
     }
     this.unlockedExercise.push(exercise)
-    localStorage.setItem(
-      'unlockedChapters',
+    localStorage.setItem(process.env.courseName +
+      '-unlockedChapters',
       JSON.stringify(this.unlockedExercise)
     )
   }
 
   @Mutation
-  public switchLocked (): void {
+  public switchLocked(): void {
     this.locked = !this.locked
   }
 
@@ -47,7 +46,7 @@ export default class Course extends VuexModule {
   }
 
   @Mutation
-  public resetCourse (): void {
-    localStorage.removeItem('unlockedChapters')
+  public resetCourse(): void {
+    localStorage.removeItem(process.env.courseName + '-unlockedChapters')
   }
 }

@@ -4,7 +4,7 @@
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title">
-            Du hast den Kurs erfolgreich beendet!
+            Du hast den Kurs "{{ title }}" erfolgreich beendet!
           </h1>
           <b-button
             class="is-vcentered"
@@ -25,3 +25,12 @@
     </section>
   </content>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      title: process.env.courseName
+    };
+  }
+}
+</script>

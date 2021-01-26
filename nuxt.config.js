@@ -3,6 +3,9 @@ export default {
   telemetry: false,
   ssr: false,
   components: true,
+  env: {
+    courseName: process.env.COURSE_NAME || 'Beispielkurs'
+  },
   router: {
     base: process.env.NODE_ENV === 'github' ? '/course/' : '/',
   },
