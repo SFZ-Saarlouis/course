@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Kürzen",
+        "pages": [
+            {
+                "name": "Einleitung",
+                "content": true,
+                "path": "einleitung"
+            },
+            {
+                "name": "Beispielinhalt",
+                "content": false,
+                "path": "example-multiselect"
+            },
+            {
+                "name": "Erste Beispielaufgabe",
+                "content": true,
+                "path": "einleitung"
+            },
+            {
+                "name": "Beispielinhalt 2",
+                "content": false,
+                "path": "example-multiselect"
+            },
+            {
+                "name": "Zweite Beispielaufgabe",
+                "content": true,
+                "path": "einleitung"
+            }
+        ]
+    },
+    {
+        "name": "Erweitern",
+        "pages": [
+            {
+                "name": "Einleitung",
+                "content": true,
+                "path": "einleitung"
+            },
+            {
+                "name": "Wie man richtig erweitert",
+                "content": true,
+                "path": "einleitung"
+            },
+            {
+                "name": "Aufgabe zum Erweitern",
+                "content": false,
+                "path": "expand"
+            }
+        ]
+    }
+]
