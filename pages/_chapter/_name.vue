@@ -14,36 +14,28 @@
 <script lang="ts">
 import { Component, Vue, namespace } from "nuxt-property-decorator";
 import data from "~/assets/data.json";
-import { Chapter } from "~/interfaces/Chapter";
 import { Exercise } from "~/interfaces/Excercise";
 
 const course = namespace("course");
 @Component
 export default class ChapterView extends Vue {
-  chapters: Array<Chapter> = data;
-
   public layout(context: any): string {
     return "course";
   }
 
   async asyncData(context: any) {
-    const chapter = data.filter(
-      (item) => item.name.toLowerCase() === context.params.chapter.toLowerCase()
-    )[0];
-    const pageData = chapter.pages.filter(
-      (item) => item.name.toLowerCase() === context.params.name.toLowerCase()
-    )[0];
-    const page = await context
-      .$content(
-        chapter.name.toLowerCase() + "/" + pageData.path.toLowerCase()
-      )
-      .fetch()
-      .catch((err: any) => {
-        console.log(err);
-      });
-    return {
-      page,
-    };
+    const chapter = context.$getChapter(context.params.chapter, data);
+    const pageData = context.$getPage(context.params.name, chapter.pages);
+    if (pageData.content) {
+      const page = await context
+        .$content(
+          chapter.name.toLowerCase() + "/" + pageData.path.toLowerCase()
+        )
+        .fetch();
+      return {
+        page,
+      };
+    }
   }
 
   created() {
@@ -52,6 +44,15 @@ export default class ChapterView extends Vue {
       this.setJumpedPage(this.$route.params.name.toLowerCase());
       this.setJumpedChapter(this.$route.params.chapter.toLowerCase());
     }
+  }
+
+  public getPageInformation(): any {
+    const chapter = this.$getChapter(this.$route.params.chapter, data);
+    const page = this.$getPage(this.$route.params.name, chapter.pages);
+    return {
+      page: page,
+      chapter: chapter.name,
+    };
   }
 
   @course.Mutation
@@ -71,14 +72,5 @@ export default class ChapterView extends Vue {
 
   @course.Mutation
   public switchLocked!: () => void;
-
-  public getPageInformation(): any {
-    const chapter = this.$getChapter(this.$route.params.chapter, this.chapters);
-    const page = this.$getPage(this.$route.params.name, chapter.pages);
-    return {
-      page: page,
-      chapter: chapter.name,
-    };
-  }
 }
 </script>

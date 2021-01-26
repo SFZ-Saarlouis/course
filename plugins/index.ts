@@ -2,12 +2,20 @@ import { Plugin } from '@nuxt/types'
 import { Chapter, Page } from '~/interfaces/Chapter'
 
 declare module 'vue/types/vue' {
-  // inject inside Vue components
+  // inject into Vue instances
   interface Vue {
     $getChapterIndex(chapter_name: string, chapters: Array<Chapter>): number
     $getPageIndex(page_name: string, pages: Array<Page>): number
     $getPageName(page_name: string, pages: Array<Page>): string
     $getChapterName(chapter_name: string, chapters: Array<Chapter>): string
+    $getChapter(chapter_name: string, chapters: Array<Chapter>): Chapter
+    $getPage(page_name: string, pages: Array<Page>): Page
+  }
+}
+
+declare module '@nuxt/types' {
+  // inject into nuxtjs context
+  interface Context {
     $getChapter(chapter_name: string, chapters: Array<Chapter>): Chapter
     $getPage(page_name: string, pages: Array<Page>): Page
   }

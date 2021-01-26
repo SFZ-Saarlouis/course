@@ -51,7 +51,6 @@ export default class Footer extends Vue {
   }
 
   public checkChapter(): void {
-    console.log("check footer");
     this.$nuxt.$emit("checkPage", this.ChapterName, this.PageName);
   }
 
