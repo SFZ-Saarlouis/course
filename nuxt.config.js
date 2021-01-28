@@ -10,7 +10,7 @@ export default {
     base: process.env.NODE_ENV === 'github' ? '/course/' : '/',
   },
   content: {
-    liveEdit: false
+    liveEdit: true
   },
   generate: {
     fallback: '404.html'
@@ -27,8 +27,19 @@ export default {
     }
   },
   buildModules: [
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
+    '@nuxtjs/color-mode'
   ],
+  css: ['@/assets/main.css'],
+  colorMode: {
+    preference: 'light', // default value of $colorMode.preference
+    hid: 'nuxt-color-mode-script',
+    globalName: '__NUXT_COLOR_MODE__',
+    componentName: 'ColorScheme',
+    classPrefix: '',
+    classSuffix: '-mode',
+    storageKey: 'nuxt-color-mode'
+  },
   modules: [
     ['nuxt-buefy', { css: true, materialDesignIcons: false }],
     ['@nuxt/content']

@@ -1,0 +1,52 @@
+:root {
+    --color: #243746;
+    --bg: white;
+}
+
+.dark-mode {
+    --color: #ebf4f1;
+    --bg: #091a28;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--color);
+}
+
+.chapter-locked {
+    opacity: 0.5;
+}
+
+.overview-unlocked {
+    background-color: #E1341E;
+    color: white;
+}
+
+.dark-mode .chapter-locked {
+    background-color: #1E2021;
+    opacity: 0.6;
+}
+
+.dark-mode .chapter-unlocked {
+    background-color: #1E2021;
+}
+
+.dark-mode p {
+    color: white;
+}
+
+.dark-mode h1 {
+    color: white;
+}
+
+.dark-mode .b-sidebar > .sidebar-content {
+    background-color: var(--bg);
+}
+
+.dark-mode .b-sidebar > .sidebar-content span {
+    color: white;
+}
+
+.dark-mode .b-sidebar > .sidebar-content > div > div > ul > li> a:hover {
+    background-color: black;
+}
