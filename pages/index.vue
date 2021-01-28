@@ -10,7 +10,7 @@
         <div v-if="locked" class="tile is-parent">
           <article
             class="tile is-child notification"
-            style="backgroundColor: transparent"
+            style="background-color: transparent"
           >
             <form @submit.prevent="switchLocked">
               <b-field label="Inhaltsverzeichnis entsperren">
@@ -29,17 +29,17 @@
           class="tile is-parent"
           @click="openChapter(item)"
         >
-          <article
-            class="tile is-child notification is-danger"
-            :style="{ backgroundColor: getColor(item) }"
-          >
+          <article class="tile is-child notification" :style="getColor(item)">
             <p class="title">
               {{ $getChapterName(item.name, chapters) }}
             </p>
           </article>
         </div>
         <div class="tile is-parent" @click="reset">
-          <article class="tile is-child notification is-danger">
+          <article
+            class="tile is-child notification"
+            style="background-color: #7957d5; color: white"
+          >
             <p class="title">Kurs zurücksetzen</p>
           </article>
         </div>
@@ -90,12 +90,12 @@ export default class Overview extends Vue {
 
   public getColor(chapter: Chapter): string {
     if (!this.locked) {
-      return "hsl(0,100%,52.94%)";
+      return "background-color: #E1341E; color: white";
     }
-    if (this.isChapterUnlocked(chapter)) {
-      return "hsl(141, 53%, 53%)";
+    if (!this.isChapterUnlocked(chapter)) {
+      return "opacity: 0.5";
     }
-    return "hsl(0, 0%, 21%)";
+    return "";
   }
 
   public reset(): void {
@@ -104,6 +104,9 @@ export default class Overview extends Vue {
   }
 
   public isChapterUnlocked(chapter: Chapter): boolean {
+    if (this.$getChapterIndex(chapter.name, this.chapters) == 0) {
+      return true;
+    }
     for (let i = 0; i < chapter.pages.length; i++) {
       if (
         !chapter.pages[i].content &&

@@ -10,7 +10,7 @@
             <a>Abgabe überprüfen</a>
           </li>
           <li v-if="isUnlocked && !isLastPage" @click.prevent="nextPage">
-            <a>Nächstes Seite</a>
+            <a>Weiter</a>
           </li>
           <li
             v-if="isUnlocked && !isLastChapter && isLastPage"
