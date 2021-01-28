@@ -7,29 +7,13 @@
         </div>
       </div>
       <div class="tile is-ancestor is-vertical is-vcentered">
-        <div v-if="locked" class="tile is-parent">
-          <article
-            class="tile is-child notification"
-            style="background-color: transparent"
-          >
-            <form @submit.prevent="switchLocked">
-              <b-field label="Inhaltsverzeichnis entsperren">
-                <b-input
-                  v-model="password"
-                  type="password"
-                  autocomplete="off"
-                />
-              </b-field>
-            </form>
-          </article>
-        </div>
         <div
           v-for="item in chapters"
           :key="item.name"
           class="tile is-parent"
           @click="openChapter(item)"
         >
-          <article class="tile is-child notification" :style="getColor(item)">
+          <article class="tile is-child notification" :class="getClass(item)">
             <p class="title">
               {{ $getChapterName(item.name, chapters) }}
             </p>
@@ -45,6 +29,9 @@
         </div>
       </div>
     </section>
+    <a class="float" @click="switchLocked">
+      <img class="my-float" :src="lockImage" />
+    </a>
     <page-list-modal
       v-if="clickedChapter != null && isImageModalActive"
       :chapter="clickedChapter"
@@ -54,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, namespace } from "nuxt-property-decorator";
+import { Component, Vue, namespace, Watch } from "nuxt-property-decorator";
 import { Chapter } from "~/interfaces/Chapter";
 import PageListModal from "~/components/PageListModal.vue";
 
@@ -70,6 +57,14 @@ export default class Overview extends Vue {
   password = "";
   isImageModalActive = false;
   clickedChapter: Chapter = this.chapters[0];
+  lockImage: any = require("~/assets/icons/lock_closed.svg");
+
+  @Watch('locked')
+  routeChanged(): void {
+    this.lockImage = this.locked
+      ? require("~/assets/icons/lock_closed.svg")
+      : require("~/assets/icons/lock_open.svg");
+  }
 
   public openChapter(chapter: Chapter): void {
     if (
@@ -88,14 +83,14 @@ export default class Overview extends Vue {
     }
   }
 
-  public getColor(chapter: Chapter): string {
+  public getClass(chapter: Chapter): string {
     if (!this.locked) {
-      return "background-color: #E1341E; color: white";
+      return "overview-unlocked";
     }
     if (!this.isChapterUnlocked(chapter)) {
-      return "opacity: 0.5";
+      return "chapter-locked";
     }
-    return "";
+    return "chapter-unlocked";
   }
 
   public reset(): void {
@@ -154,3 +149,22 @@ export default class Overview extends Vue {
   public locked!: boolean;
 }
 </script>
+
+<style scoped>
+.float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #0c9;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+}
+.my-float {
+  vertical-align: middle;
+  margin-top: 18px;
+}
+</style>
