@@ -29,9 +29,38 @@
         </div>
       </div>
     </section>
-    <a class="float" @click="switchLocked">
+    <a class="float" @click="openLockModal">
       <img class="my-float" :src="lockImage" />
     </a>
+
+    <!-- Lock Modal -->
+    <b-modal
+      v-model="isActive"
+      trap-focus
+      has-modal-card
+      scroll="keep"
+      @close="isActive = false"
+    >
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title" style="text-align: center">
+            Inhaltsverzeichnis entsperren
+          </p>
+        </header>
+        <section class="modal-card-body" style="text-align: left">
+          <form @submit.prevent="switchLocked">
+            <b-field label="Passwort">
+              <b-input
+                v-model="password"
+                style="-webkit-text-security: disc"
+              />
+            </b-field>
+          </form>
+        </section>
+        <footer class="modal-card-foot" />
+      </div>
+    </b-modal>
+
     <page-list-modal
       v-if="clickedChapter != null && isImageModalActive"
       :chapter="clickedChapter"
@@ -58,8 +87,9 @@ export default class Overview extends Vue {
   isImageModalActive = false;
   clickedChapter: Chapter = this.chapters[0];
   lockImage: any = require("~/assets/icons/lock_closed.svg");
+  isActive: boolean = false;
 
-  @Watch('locked')
+  @Watch("locked")
   routeChanged(): void {
     this.lockImage = this.locked
       ? require("~/assets/icons/lock_closed.svg")
@@ -87,6 +117,9 @@ export default class Overview extends Vue {
     if (!this.locked) {
       return "overview-unlocked";
     }
+    if(this.$getChapterIndex(chapter.name, this.chapters) == 0){
+      return "chapter-unlocked"
+    }
     if (!this.isChapterUnlocked(chapter)) {
       return "chapter-locked";
     }
@@ -99,9 +132,6 @@ export default class Overview extends Vue {
   }
 
   public isChapterUnlocked(chapter: Chapter): boolean {
-    if (this.$getChapterIndex(chapter.name, this.chapters) == 0) {
-      return true;
-    }
     for (let i = 0; i < chapter.pages.length; i++) {
       if (
         !chapter.pages[i].content &&
@@ -128,6 +158,14 @@ export default class Overview extends Vue {
 
   public closeEvent(): void {
     this.isImageModalActive = false;
+  }
+
+  public openLockModal(): void {
+    if (this.locked) {
+      this.isActive = true;
+    } else {
+      this.switchLocked();
+    }
   }
 
   @course.State
