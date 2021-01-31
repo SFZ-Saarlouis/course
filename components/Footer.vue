@@ -4,7 +4,7 @@
       <div class="container">
         <ul>
           <li class="is-active" @click='$nuxt.$emit("openOverview")'>
-            <a>Übersicht</a>
+            <a>Inhaltsverzeichnis</a>
           </li>
           <li v-if="!isUnlocked" @click.prevent="checkChapter">
             <a>Abgabe überprüfen</a>

@@ -17,7 +17,13 @@ import data from "~/assets/data.json";
 import { Exercise } from "~/interfaces/Excercise";
 
 const course = namespace("course");
-@Component
+@Component({
+  head() {
+    return {
+      title: this.$getChapter(this.$route.params.chapter, data).name
+    };
+  },
+})
 export default class ChapterView extends Vue {
   public layout(context: any): string {
     return "course";
