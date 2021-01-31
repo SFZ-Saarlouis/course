@@ -13,6 +13,12 @@ body {
     color: var(--color);
 }
 
+/* Nuxt Content */
+.dark-mode .nuxt-content * {
+    color: white;
+}
+
+/* Overview */
 .chapter-locked {
     opacity: 0.5;
 }
@@ -39,29 +45,30 @@ body {
     color: white;
 }
 
-.dark-mode .b-sidebar > .sidebar-content {
+.dark-mode .b-sidebar>.sidebar-content {
     background-color: var(--bg);
 }
 
-.dark-mode .b-sidebar > .sidebar-content span {
+.dark-mode .b-sidebar>.sidebar-content span {
     color: white;
 }
 
-.dark-mode .b-sidebar > .sidebar-content > div > div > ul > li> a:hover {
+.dark-mode .b-sidebar>.sidebar-content>div>div>ul>li>a:hover {
     background-color: black;
 }
 
 /* Modal */
-.dark-mode .modal-card-head  {
+
+.dark-mode .modal-card-head {
     background-color: var(--bg);
     border-bottom: none;
 }
 
-.dark-mode .modal-card-body  {
+.dark-mode .modal-card-body {
     background-color: var(--bg);
 }
 
-.dark-mode .modal-card-foot  {
+.dark-mode .modal-card-foot {
     background-color: var(--bg);
     border-top: none;
 }
@@ -72,4 +79,10 @@ body {
 
 .is-clearfix::after {
     content: none;
+}
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: textfield;
 }
