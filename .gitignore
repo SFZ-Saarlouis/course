@@ -166,4 +166,9 @@ docs/_book
 # TODO: where does this rule come from?
 test/
 
+### Custom ###
+components/global/*
+assets/data.json
+content/*
+
 # End of https://www.toptal.com/developers/gitignore/api/vue,git,node,vscode,dotenv,visualstudiocode,nuxtjs
