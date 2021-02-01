@@ -5,7 +5,7 @@
     "
     :document="page"
   />
-  <component
+  <component class="excercise"
     :is="getPageInformation() !== undefined && getPageInformation().page.path"
     v-else
   />

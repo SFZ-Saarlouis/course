@@ -3,7 +3,7 @@
     <section id="hero-background" class="hero">
       <div class="hero-body">
         <div class="container has-text-centered">
-          <p id="title" class="title">Übersicht</p>
+          <p id="title" class="title" @click="count">Übersicht</p>
         </div>
       </div>
       <div class="tile is-ancestor is-vertical is-vcentered">
@@ -50,10 +50,7 @@
         <section class="modal-card-body" style="text-align: left">
           <form @submit.prevent="switchLocked">
             <b-field label="Passwort">
-              <b-input
-                v-model="password"
-                style="-webkit-text-security: disc"
-              />
+              <b-input v-model="password" style="-webkit-text-security: disc" />
             </b-field>
           </form>
         </section>
@@ -88,6 +85,7 @@ export default class Overview extends Vue {
   clickedChapter: Chapter = this.chapters[0];
   lockImage: any = require("~/assets/icons/lock_closed.svg");
   isActive: boolean = false;
+  counter: number = 0;
 
   @Watch("locked")
   routeChanged(): void {
@@ -117,8 +115,8 @@ export default class Overview extends Vue {
     if (!this.locked) {
       return "overview-unlocked";
     }
-    if(this.$getChapterIndex(chapter.name, this.chapters) == 0){
-      return "chapter-unlocked"
+    if (this.$getChapterIndex(chapter.name, this.chapters) == 0) {
+      return "chapter-unlocked";
     }
     if (!this.isChapterUnlocked(chapter)) {
       return "chapter-locked";
@@ -165,6 +163,18 @@ export default class Overview extends Vue {
       this.isActive = true;
     } else {
       this.switchLocked();
+    }
+  }
+
+  public count(): void {
+    this.counter++;
+    if (this.counter === 5) {
+      if (this.$colorMode.value == "dark") {
+        this.$colorMode.preference = "light";
+      } else {
+        this.$colorMode.preference = "dark";
+      }
+      this.counter = 0;
     }
   }
 

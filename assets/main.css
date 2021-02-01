@@ -45,6 +45,15 @@ body {
     color: white;
 }
 
+.dark-mode a {
+    color: white;
+}
+
+.dark-mode a:hover {
+    background-color: white;
+    color: #7957d5;
+}
+
 .dark-mode .b-sidebar>.sidebar-content {
     background-color: var(--bg);
 }
@@ -82,7 +91,11 @@ body {
 }
 
 /* Firefox */
-
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+/** Input Field **/
+.dark-mode .excercise input {
+    color:black;
 }
